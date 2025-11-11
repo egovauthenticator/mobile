@@ -1,0 +1,73 @@
+<ion-header [translucent]="true" [ngClass]="{ 'no-shadow': !showShadow }">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home" fill="clear">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Verification History</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/search">
+        <ion-icon name="search" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)" class="refresher-custom">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  @if(isLoading && verificationHistory.length === 0) {
+    <ngx-skeleton-loader [theme]="{ height: '70px'}" count="7" />
+  }@else {
+    @if(verificationHistory.length > 0) {
+      <div class="verification-list">
+        @for (verification of verificationHistory; track verification) {
+        <ion-card class="verification-item" button class="ion-activatable ripple-parent">
+          <ion-button class="more-btn" fill="clear" shape="round" (click)="openMenu(verification)">
+            <ion-icon name="ellipsis-vertical" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-card-header>
+            <ion-card-title button (click)="onOpenDetails(verification)">
+              <ion-text color="{{
+                        verification.status === 'AUTHENTIC' ? 'primary' :
+                        verification.status === 'ERROR' || verification.status === 'FAKE' ? 'danger' : ''
+                      }}
+                      " class="status-text">{{verification?.status}}</ion-text>
+              <h4 class="title">{{verification?.data?.name}}</h4>
+            </ion-card-title>
+            <ion-card-subtitle (click)="onOpenDetails(verification)">
+              <ion-text class="subtitle">{{verification?.type}}</ion-text>
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+
+            <div class="card-content-footer" (click)="onOpenDetails(verification)">
+              <ion-text color="medium">{{verification?.data?.address}}</ion-text>
+              <p>{{verification?.timestamp | timeAgo }}</p>
+            </div>
+          </ion-card-content>
+        </ion-card>
+        }
+      </div>
+    } @else {
+      <div class="empty-placeholder-wrapper">
+        <div class="empty-placeholder">
+          <ion-icon src="assets/icon/empty-record-placehoder.svg"></ion-icon>
+          <h4>No Scanned Documents Yet</h4>
+          <ion-text>Start by scanning your first document to verify its authenticity.</ion-text>
+        </div>
+      </div>
+    }
+  }
+  <ion-infinite-scroll [disabled]="total === verificationHistory.length || isLoading" threshold="120px"
+    (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <ion-spinner style="width: 100%;margin: 10px 0;"
+    *ngIf="isLoading && verificationHistory.length > 0 && total !== verificationHistory.length"></ion-spinner>
+</ion-content>

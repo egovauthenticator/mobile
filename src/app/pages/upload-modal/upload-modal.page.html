@@ -1,0 +1,48 @@
+<ion-header class="no-shadow">
+  <ion-toolbar>
+    <ion-title>Upload document</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [disabled]="uploading()" (click)="closeModal()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="upload-modal ion-padding">
+  <!-- Dropzone / picker -->
+  <div [style.display]="previewUrl() ? 'none' : 'flex'" style="    height: 100%;
+    flex-direction: column;
+    justify-content: center;">
+    <div class="dropzone" (click)="fileInput?.click()" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+      <ion-icon name="image-outline" size="large"></ion-icon>
+      <div class="hint">
+        <b>Click to choose</b> an image (JPG/PNG/WebP)
+      </div>
+      <input #fileInput type="file" accept="image/*" hidden (change)="onFilePicked($event)"
+        accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" />
+    </div>
+
+  </div>
+  <!-- Preview -->
+  <div class="preview-wrapper" *ngIf="previewUrl() as url">
+    <div class="preview">
+      <ion-button class="clear" fill="clear" shape="round" [disabled]="uploading()" (click)="clearSelection()">
+        <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      <img [src]="url" alt="preview"/>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer class="ion-padding">
+  <ion-toolbar class=" modal-safe-botom">
+    <ion-button expand="block" shape="round" [disabled]="!file() || uploading()" (click)="submit()">
+      <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
+      Submit
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
+<ion-footer class="modal-safe-botom">
+</ion-footer>

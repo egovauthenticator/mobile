@@ -1,0 +1,43 @@
+.page {
+  --background: var(--ion-color-primary-contrast);
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  /* vertical center */
+  justify-content: center;
+  /* horizontal center */
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 !important;
+}
+
+ion-card-subtitle {
+  font-size: 16px!important;
+}
+
+
+ion-button.action {
+  height: 50px;
+}
+
+
+.terms-row {
+  --inner-padding-end: 0;
+  align-items: center;
+}
+.terms-row .ml-2 { margin-left: 8px; }
+
+.terms-content h2 {
+  margin-top: 18px;
+  font-size: 1.1rem;
+}
+
+.links {
+  margin: 8px 0 16px;
+  a { text-decoration: underline; margin-right: 6px; }
+}

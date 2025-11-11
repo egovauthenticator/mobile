@@ -1,0 +1,26 @@
+
+.page {
+  --background: var(--ion-color-primary-contrast);
+}
+
+.wrap {
+  display: flex;
+  align-items: center;      /* vertical center */
+  justify-content: center;  /* horizontal center */
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  margin: 0!important;
+}
+
+ion-card-subtitle {
+  font-size: 16px!important;
+}
+
+ion-button.action {
+  height: 50px;
+}
+
+

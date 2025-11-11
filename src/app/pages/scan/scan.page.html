@@ -1,0 +1,70 @@
+<ion-header [translucent]="true" [ngClass]="{ 'no-shadow': (scrollService.scrollTop$ | async) === 0 }">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title style="text-align: center;">Scan</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onModeChange(mode === 'qr' ? 'ocr' : 'qr')">
+        <ion-icon *ngIf="mode === 'qr'" name="camera-outline" slot="icon-only"></ion-icon>
+        <ion-icon *ngIf="mode === 'ocr'" name="qr-code-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="stage fullscreen">
+    <div class="video-wrap">
+      <div class="video-splash" *ngIf="showSplash && !previewSrc"></div>
+
+      <div *ngIf="mode === 'qr' && isScanning && !previewSrc" class="qr-box-wrapper">
+        <div class="qr-box"></div>
+      </div>
+      <!-- Show live camera unless previewing -->
+      <video #videoEl autoplay playsinline muted [hidden]="!!previewSrc"></video>
+
+      <div *ngIf="unsupportedMsg" class="unsupported-msg">{{ unsupportedMsg }}</div>
+
+      <button *ngIf="needsTapToStart && !previewSrc && !unsupportedMsg" class="tap-start" (click)="onTapToStart()">
+        Tap to start camera
+      </button>
+
+      <!-- Snapshot preview -->
+      <img *ngIf="previewSrc" [src]="previewSrc" alt="snapshot" class="preview-img" />
+
+      <!-- Bottom controls -->
+      <div class="bottom-ctr safe-botom">
+        <!-- Spinner shown ONLY in QR mode while scanning; OCR is user-driven -->
+
+        <!-- OCR: Capture button (visible when live and not previewing) -->
+        <ion-button *ngIf="mode === 'ocr' && isScanning && !previewSrc" class="cap-btn" (click)="onCapture()"
+          shape="round" fill="solid" color="tertiary">
+          <ion-icon name="camera-outline" size="large" slot="icon-only"></ion-icon>
+        </ion-button>
+
+        <!-- OCR: Submit + Retry (visible when previewing) -->
+        <ion-button *ngIf="mode === 'ocr' && previewSrc" [disabled]="isSubmitting" class="submit-btn" color="tertiary"
+          (click)="onSubmitPreview()" shape="round" fill="solid">
+          Submit
+        </ion-button>
+
+        <ion-button *ngIf="showRetry" [disabled]="isSubmitting" class="retry-btn" (click)="onRetry()" size="large" color="tertiary"
+          shape="round" fill="solid">
+          <ion-icon name="repeat" slot="icon-only"></ion-icon>
+        </ion-button>
+      </div>
+
+      <!-- Allow camera switch when not previewing (both modes) -->
+      <ion-fab *ngIf="hasMultipleCams && !previewSrc" class="fab-switch" vertical="bottom" horizontal="end">
+        <ion-fab-button size="small" (click)="switchCamera()" aria-label="Switch camera" color="tertiary">
+          <ion-icon name="camera-reverse"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </div>
+  </div>
+</ion-content>

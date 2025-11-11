@@ -1,0 +1,78 @@
+<ion-header [translucent]="true" [ngClass]="{ 'no-shadow': !showShadow }">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClose()" fill="clear" aria-label="Back">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Verification Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-list inset="true" class="details-list">
+    <ion-item lines="full">
+      <ion-label slot="start">Date/Time</ion-label>
+      <ion-note slot="end" class="value-note mono truncate"><h6>{{ verification?.timestamp | date: "MMM dd, yyyy hh:mm a" }}</h6></ion-note>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label slot="start">Document</ion-label>
+      <ion-note slot="end" class="value-note truncate"><h6>{{ verification?.type }}</h6></ion-note>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label slot="start">Status</ion-label>
+      <ion-note slot="end" class="value-note">
+        <ion-chip color="{{ verification?.status === 'AUTHENTIC' ? 'success' : verification?.status === 'FAKE' ? 'warning' : 'danger'}}" size="small">
+          <ion-label>{{ verification?.status }}</ion-label>
+        </ion-chip>
+      </ion-note>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label slot="start">Id number</ion-label>
+      <ion-note slot="end" class="value-note truncate"><h6>{{ verification?.data?.id }}</h6></ion-note>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label slot="start">Name</ion-label>
+      <ion-note slot="end" class="value-note truncate"><h6>{{ verification?.data?.name }}</h6></ion-note>
+    </ion-item>
+
+    @if(verification?.type === 'VOTERS') {
+
+      <ion-item lines="full">
+        <ion-label slot="start">Precinct no</ion-label>
+        <ion-note slot="end" class="value-note truncate"><h6>{{ verification?.data?.precintNo }}</h6></ion-note>
+      </ion-item>
+    }
+  </ion-list>
+
+  <ion-list inset="true" class="details-list">
+    <ion-item lines="full">
+      <ion-label slot="start">First name</ion-label>
+      <ion-note slot="end" class="value-note mono truncate"><h6>{{ verification?.data?.firstName }}</h6></ion-note>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label slot="start">Middle name</ion-label>
+      <ion-note slot="end" class="value-note truncate"><h6>{{ verification?.data?.lastName }}</h6></ion-note>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label slot="start">Last name</ion-label>
+      <ion-note slot="end" class="value-note truncate"><h6>{{ verification?.data?.lastName }}</h6></ion-note>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label slot="start">Sex</ion-label>
+      <ion-note slot="end" class="value-note truncate"><h6>{{ verification?.data?.sex }}</h6></ion-note>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label slot="start">Address</ion-label>
+      <ion-note slot="end" class="value-note truncate"><h6>{{ verification?.data?.address }}</h6></ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>

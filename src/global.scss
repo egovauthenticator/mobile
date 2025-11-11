@@ -1,0 +1,340 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+// @import '@ionic/angular/css/palettes/dark.system.css';
+
+@font-face {
+  font-family: 'Poppins-Bold';
+  src: url("./assets/fonts/poppins/Poppins-Bold.ttf");
+}
+
+@font-face {
+  font-family: 'Poppins-SemiBold';
+  src: url("./assets/fonts/poppins/Poppins-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: 'Poppins-Regular';
+  src: url("./assets/fonts/poppins/Poppins-Regular.ttf");
+}
+
+:root,
+.md,
+.ios {
+  --ion-font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html,
+body {
+  margin: 0;
+  background: #fff;
+  font-family: sans-serif;
+  height: 100%;
+  font-family: var(--ion-font-family);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+strong,
+span,
+label,
+input,
+textarea {
+  font-family: "Poppins-Regular" !important;
+}
+
+/* src/global.scss */
+
+/* === Global Font Size for Ionic Form Fields === */
+ion-input,
+ion-textarea,
+ion-select,
+ion-radio,
+ion-checkbox,
+ion-toggle,
+ion-datetime {
+  --color: #000;
+  /* optional, set default text color */
+  font-size: 16px !important;
+  /* apply font size to host */
+}
+
+ion-input input,
+ion-textarea textarea,
+ion-select .select-text {
+  font-size: 16px !important;
+  --color: #000 !important;
+  font-weight: 700 !important;
+  /* force inner native inputs */
+}
+
+.error-text {
+  font-size: 16px !important;
+  /* force inner native inputs */
+}
+
+
+// ion-header {
+//   margin-top: 40px!important;
+// }
+
+/* ===== Remove ALL header / toolbar shadow & border (MD + iOS) ===== */
+
+/* MD mode: the drop shadow is on the toolbar background part */
+.md ion-toolbar.no-bg::part(background) {
+  background-color: transparent !important;
+  background: transparent !important;
+  --background-color: transparent !important;
+  --background: transparent !important;
+}
+
+.md ion-toolbar.no-shadow::part(background) {
+  box-shadow: none !important;
+}
+
+
+/* Fallbacks / extra hardening */
+ion-toolbar.no-bg {
+  background-color: transparent !important;
+  background: transparent !important;
+  --background-color: transparent !important;
+  --background: transparent !important;
+}
+
+ion-toolbar.no-shadow {
+  --box-shadow: none !important;
+  /* if theme uses the var */
+  --border-width: 0 !important;
+  --border-color: transparent !important;
+}
+
+/* Some themes apply elevation to the header itself when scrolled */
+.header-md.no-bg,
+.header-ios.no-bg,
+ion-header.no-bg,
+.footer-md.no-bg,
+.footer-ios.no-bg,
+ion-footer.no-bg {
+  background-color: transparent !important;
+  background: transparent !important;
+  --background-color: transparent !important;
+  --background: transparent !important;
+}
+
+/* Some themes apply elevation to the header itself when scrolled */
+.header-md.no-shadow,
+.header-ios.no-shadow,
+ion-header.no-shadow,
+.footer-md.no-shadow,
+.footer-ios.no-shadow,
+ion-footer.no-shadow {
+  box-shadow: none !important;
+}
+
+/* Older iOS builds used a ::after hairline on the header */
+ion-header.no-shadow::after,
+ion-footer.no-shadow::after {
+  display: none !important;
+}
+
+
+.modal-fullscreen {
+  --width: 100%;
+  --height: 100%;
+}
+
+.md ion-card.no-shadow {
+  box-shadow: none !important;
+  --box-shadow: none !important;
+  box-shadow: none !important;
+  border: none !important;
+
+}
+
+/* Forms */
+
+ion-input {
+  --border-width: 2px !important;
+  --border-radius: 10px !important;
+  font-family: "Poppins-SemiBold" !important;
+
+  &.has-focus {
+    --border-width: 3px !important;
+
+    &.ion-valid {
+      --border-color: var(--ion-color-primary) !important;
+
+      .input-wrapper {
+        .label-text {
+          color: var(--ion-color-primary) !important;
+        }
+      }
+    }
+
+    &:not(.ion-invalid) {
+      .input-wrapper {
+        .label-text {
+          color: var(--ion-color-primary) !important;
+        }
+      }
+    }
+  }
+}
+
+ion-textarea {
+  --border-width: 2px !important;
+  --border-radius: 10px !important;
+
+  &.has-focus {
+    --border-width: 3px !important;
+
+    &.ion-valid {
+      --border-color: var(--ion-color-primary) !important;
+
+      .input-wrapper {
+        .label-text {
+          color: var(--ion-color-primary) !important;
+        }
+      }
+    }
+
+    &:not(.ion-invalid) {
+      .input-wrapper {
+        .label-text {
+          color: var(--ion-color-primary) !important;
+        }
+      }
+    }
+  }
+}
+
+ion-select {
+  --border-width: 2px !important;
+  --border-radius: 10px !important;
+
+  &.select-expanded {
+    --border-width: 3px !important;
+
+    &.ion-valid {
+      &::part(icon) {
+        color: var(--ion-color-primary) !important;
+      }
+
+      --border-color: var(--ion-color-primary) !important;
+
+      .select-wrapper {
+        .label-text {
+          color: var(--ion-color-primary) !important;
+        }
+      }
+    }
+
+    &:not(.ion-invalid) {
+      .input-wrapper {
+        .label-text {
+          color: var(--ion-color-primary) !important;
+        }
+      }
+    }
+  }
+}
+
+.ion-valid.sc-ion-input-md-h {
+  --highlight-color: var(--highlight-color-valid);
+}
+
+
+
+
+ion-button {
+  &.regular {
+    height: 56px !important;
+    --border-radius: 10px !important;
+  }
+}
+
+
+/* Base loading overlay styles */
+ion-loading {
+  --background: #fff !important;
+  /* removes small box look */
+  --backdrop-opacity: 1;
+  /* solid backdrop */
+  font-family: "Poppins", sans-serif !important;
+  font-size: 1.4rem !important;
+
+  .loading-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: -webkit-fill-available !important;
+    max-height: -webkit-fill-available !important;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+
+.modal-safe-botom {
+  padding-bottom: calc(var(--safe-bottom, 0))!important;
+}
+
+.alert-button-cancel {
+  color: var(--ion-color-medium);
+}
+.alert-button-confirm {
+  color: var(--ion-color-danger);
+  font-weight: 600;
+}
+
+.alert-button-danger {
+  color: var(--ion-color-danger)!important;
+  font-weight: 600;
+}
+
+.action-sheet-button-danger {
+  color: var(--ion-color-danger)!important;
+  font-weight: 600;
+}

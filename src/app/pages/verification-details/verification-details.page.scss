@@ -1,0 +1,52 @@
+:host {
+  --ion-item-min-height: 44px;
+}
+
+.details-list,
+.actions-list {
+  margin-top: 12px;
+}
+
+ion-item {
+  --padding-start: 10px;
+  --inner-padding-end: 10px;
+}
+
+ion-label {
+  margin: 0;
+  font-weight: 500;
+  color: var(--ion-color-medium);
+  max-width: 100px!important;
+  width: 100%;
+}
+
+.value-note {
+  text-align: end;
+  h6 {
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* number of lines you want */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    /* allow wrapping */
+    max-height: 3rem;
+  }
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Optional: hide header shadow when desired */
+.no-shadow {
+  --box-shadow: none;
+}

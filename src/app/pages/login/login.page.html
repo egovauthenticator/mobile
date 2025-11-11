@@ -1,0 +1,65 @@
+<ion-header [ngClass]="{ 'no-shadow': (scrollService.scrollTop$ | async) === 0 }">
+  <ion-toolbar class="transparent-toolbar no-shadow">
+
+    <!-- Back arrow first (left side) -->
+    <ion-buttons slot="start">
+      <ion-button routerLink="/landing-page" fill="clear">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true" class="ion-padding page" [scrollEvents]="true">
+  <div class="wrap">
+    <ion-card class="card no-shadow">
+      <ion-card-header>
+    <img style="    width: 100%;
+    height: 200px;
+    object-fit: contain;" src="assets/images/scan-placeholder.png" alt="">
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <!-- Email (outlined) -->
+          <ion-input errorText="{{
+            email?.hasError('required') ? 'Email is required' :
+            email?.hasError('userNotVerified') ? 'Your email is not verified. Please check your inbox.' :
+            email?.hasError('userNotFound') ? 'No account found with this email' : ''
+          }}" class="mb" formControlName="email" label="Email" labelPlacement="stacked" fill="outline"
+            inputmode="email" placeholder="you@example.com" clearInput="true">
+          </ion-input>
+
+          <br>
+
+          <!-- Password (outlined) with toggle -->
+          <ion-input errorText="{{
+            password?.hasError('required') ? 'Password is required' :
+            password?.hasError('passwordIncorrect') ? 'Password is incorrect' : ''
+          }}" class="mb" formControlName="password" [type]="showPassword ? 'text' : 'password'" label="Password"
+            placeholder="Enter your password" labelPlacement="stacked" fill="outline" autocomplete="off">
+            <ion-button slot="end" fill="clear" size="small" type="button" (click)="showPassword = !showPassword">
+              <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+            </ion-button>
+          </ion-input>
+
+
+          <br>
+          <div style="    display: flex;
+              flex-direction: column;
+              align-items: flex-end;font-size: 16px;">
+
+            <ion-text color="primary" (click)="onForgotPassword()">Forgot password?</ion-text>
+          </div>
+          <br>
+          <ion-button class="action" expand="block" type="submit" shape="round" [disabled]="form.invalid">
+            Log in
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

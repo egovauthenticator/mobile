@@ -1,0 +1,37 @@
+.page {
+  --background: var(--ion-color-primary-contrast);
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  /* vertical center */
+  justify-content: center;
+  /* horizontal center */
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 !important;
+}
+
+
+.input-otp-description {
+  font-size: 1.2rem;
+}
+
+ion-card-subtitle {
+  font-size: 16px !important;
+}
+
+ion-button.action {
+  height: 50px;
+}
+
+ion-input-otp {
+  --border-width: 1.5px;
+  --border-color-focused: var(--ion-color-primary) !important;
+  --highlight-color-focused: var(--ion-color-primary) !important;
+  --highlight-color-valid: var(--ion-color-primary) !important;
+}

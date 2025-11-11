@@ -1,0 +1,11 @@
+<div class="wrapper">
+  <div class="box" style="background-color: {{icon && !src ? '#eaf2f5' : !icon && src ? 'transparent' : '#eaf2f5'}}!important;">
+    @if(icon) {
+      <ion-icon name="{{icon || 'cloud-outline'}}" size="large" color="light"></ion-icon>
+    } @else {
+      <ion-icon style="background-color: #f6f6fb!important;padding: 0;width: 100%;height: 100%;opacity: 1;" src="{{src || 'assets/icon/empty-record-placehoder.svg'}}" size="large" ></ion-icon>
+    }
+    <h3>{{title || "Nothing here!"}}</h3>
+    <p>{{description || "No records found here."}}</p>
+  </div>
+</div>

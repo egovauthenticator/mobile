@@ -1,0 +1,95 @@
+<ion-header [translucent]="true" [ngClass]="{ 'no-shadow': !showShadow }">
+  <ion-toolbar color="primary">
+    <!-- <ion-buttons slot="start">
+      <ion-back-button default-href="/home"></ion-back-button>
+    </ion-buttons> -->
+    <!-- Back arrow first (left side) -->
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home" fill="clear">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="profile-pic ion-padding">
+    <div class="img-wrap">
+      <img src="assets/images/avatar.png" alt="">
+    </div>
+    <h1 class="display-name">{{currentProfile?.name || ''}}</h1>
+    <span class="email">{{currentProfile?.email || ''}}</span>
+  </div>
+
+  <ion-list class="settings" lines="none">
+    <ion-item button detail="false" (click)="updateProfileModal.present()">
+      <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+      <ion-label>Edit profile</ion-label>
+    </ion-item>
+    <ion-item button detail="false" (click)="onResetPassword()">
+      <ion-icon name="lock-open-outline" slot="start"></ion-icon>
+      <ion-label>Reset password</ion-label>
+    </ion-item>
+    <ion-item button detail="false" routerLink="/help-support" [state]="{ backUrl: 'profile' }">
+      <ion-icon name="help-buoy-outline" slot="start"></ion-icon>
+      <ion-label>Help & Support</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-modal #updateProfileModal [backdropDismiss]="true" [showBackdrop]="true"
+    (willPresent)="fillForm();ionViewWillLeave();formUpdateProfile.markAsPristine()" (willDismiss)="ionViewWillEnter();">
+    <ng-template>
+      <ion-header translucent="true" [ngClass]="{ 'no-shadow': (scrollService.scrollTop$ | async) === 0 }">
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="updateProfileModal.dismiss()">
+              <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Update profile</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding">
+        <form [formGroup]="formUpdateProfile" id="formUpdateProfile" (ngSubmit)="onSubmitUpdateProfile()">
+          <!-- Name -->
+          <ion-input class="mb" formControlName="name" label="Name" labelPlacement="stacked" fill="outline"
+            placeholder="Enter your name" clearInput="true" [errorText]="
+              name?.hasError('required') ? 'Name is required' : ''
+            ">
+          </ion-input>
+
+          <br>
+
+          <!-- Email -->
+          <ion-input class="mb" formControlName="email" label="Email" labelPlacement="stacked" fill="outline"
+            placeholder="Enter your email" clearInput="true" [errorText]="
+              email?.hasError('required') ? 'Email is required' : ''
+            ">
+          </ion-input>
+        </form>
+      </ion-content>
+      <ion-footer class="no-shadow ion-padding">
+        <ion-toolbar>
+          <div class="action">
+            <ion-button shape="round" color="danger" expand="block" fill="clear"
+              (click)="updateProfileModal.dismiss()">Cancel</ion-button>
+            <ion-button shape="round" color="primary" expand="block"
+              [disabled]="!formUpdateProfile.valid || !formUpdateProfile.touched || !formUpdateProfile.dirty || isLoading"
+              form="formUpdateProfile" type="submit">Update</ion-button>
+          </div>
+        </ion-toolbar>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>
+
+<ion-footer class="no-shadow ion-padding">
+  <ion-toolbar>
+    <ion-button color="danger" fill="solid" shape="round" expand="block" (click)="onLogout()">
+      Logout
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

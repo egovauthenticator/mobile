@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">DX OCR</string>
+    <string name="title_activity_main">DX OCR</string>
+    <string name="package_name">com.dxocr.app</string>
+    <string name="custom_url_scheme">com.dxocr.app</string>
+</resources>

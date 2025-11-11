@@ -1,0 +1,75 @@
+<ion-header [translucent]="true" [ngClass]="{ 'no-shadow': !showShadow }">
+  <ion-toolbar class="search-toolbar">
+    <!-- Back Button -->
+    <ion-buttons slot="start">
+      <ion-button fill="clear" routerLink="/verification-history">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <!-- Search Bar -->
+    <form class="search-form">
+      <ion-item lines="none" class="search-pill">
+        <ion-icon slot="start" name="search-outline"></ion-icon>
+
+        <ion-input type="search" placeholder="Search anything..." [debounce]="250" clear-input="true"
+          enterkeyhint="search" inputmode="search" autofocus #searchInput (keyup)="onKey($event)" (ionClear)="onClear()" (ionInput)="onInput($event)">
+        </ion-input>
+      </ion-item>
+    </form>
+  </ion-toolbar>
+  @if(searchInput.value) {
+  <ion-toolbar>
+    <div class="chip-scroll in-toolbar">
+      <ion-button style="--border-width: 1px!important;" size="small" shape="round"
+        color="{{type.psa ? 'success' : 'dark'}}" fill="{{type.psa ? 'solid' : 'outline'}}"
+        (click)="onSelectType('psa')">
+        PSA
+        <ion-icon *ngIf="type.psa" slot="end" name="close-outline"></ion-icon>
+      </ion-button>
+      <ion-button style="--border-width: 1px!important;" size="small" shape="round"
+        color="{{type.philSys ? 'success' : 'dark'}}" fill="{{type.philSys ? 'solid' : 'outline'}}"
+        (click)="onSelectType('philSys')">
+        PHILSYS
+        <ion-icon *ngIf="type.philSys" slot="end" name="close-outline"></ion-icon>
+      </ion-button>
+      <ion-button style="--border-width: 1px!important;" size="small" shape="round"
+        color="{{type.voters ? 'success' : 'dark'}}" fill="{{type.voters ? 'solid' : 'outline'}}"
+        (click)="onSelectType('voters')">
+        VOTERS
+        <ion-icon *ngIf="type.voters" slot="end" name="close-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+  }
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+@if(!isLoading && verificationHistory.length > 0) {
+  <span>Search for "{{searchInput.value}}"({{verificationHistory.length}})</span>
+  <ion-list>
+    @for (verification of verificationHistory; track verification) {
+      <ion-item button (click)="onOpenDetails(verification)">
+        <ion-label>
+          <h2>{{verification?.data?.name}}</h2>
+          <p>{{verification?.type}} </p>
+        </ion-label>
+        <ion-note slot="end">
+          <span>{{verification?.timestamp| timeAgo}}</span><br>
+          <ion-text color="{{
+                    verification.status === 'AUTHENTIC' ? 'primary' :
+                    verification.status === 'ERROR' || verification.status === 'FAKE' ? 'danger' : ''
+                  }}
+                  ">{{verification?.status}}</ion-text>
+        </ion-note>
+      </ion-item>
+    }
+  </ion-list>
+}
+
+@if(!isLoading && isSearchComplete && verificationHistory.length === 0) {
+  <empty-records src="assets/icon/empty-record-placehoder.svg" title="No results found" description="Try changing or removing some filters to broaden your search."></empty-records>
+}
+  <ion-spinner style="width: 100%;margin: 10px 0;" *ngIf="isLoading"></ion-spinner>
+</ion-content>

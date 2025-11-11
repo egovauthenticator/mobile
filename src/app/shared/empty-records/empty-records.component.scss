@@ -1,0 +1,53 @@
+:host {
+  height: 100%;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  background-color: #eaf2f5;
+  width: 100%;
+  border-radius: 15px;
+  height: calc(100% *.5);
+  align-items: center;
+  justify-content: center;
+  color: var(--ion-color-dark-tint);
+  padding: 20px 10px;
+  min-height: 200px;
+  box-sizing: border-box;
+
+  ion-icon {
+        opacity: 0.4;
+    background-color: #f6f6fb;
+    border-radius: 50%;
+    min-width: 50px;
+    min-height: 50px;
+    padding: 20px;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    margin: 0;
+    font-weight: 100;
+    text-align: center;
+  }
+
+  p {
+    margin: 0;
+    font-weight: 100;
+    text-align: center;
+  }
+}
